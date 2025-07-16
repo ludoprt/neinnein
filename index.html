@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--
+      This is the page head - it contains info the browser uses to display the page
+      You won't see what's in the head in the page
+      Scroll down to the body element for the page content
+    -->
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="https://glitch.com/favicon.ico" />
+
+    <!-- 
+      This is an HTML comment
+      You can write text in a comment and the content won't be visible in the page
+    -->
+
+    <title>Hello World!</title>
+
+    <!-- Meta tags for SEO and social sharing -->
+    <link rel="canonical" href="https://glitch-hello-website.glitch.me/" />
+    <meta
+      name="description"
+      content="A simple website, built with Glitch. Remix it to get your own."
+    />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:title" content="Hello World!" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://glitch-hello-website.glitch.me/" />
+    <meta
+      property="og:description"
+      content="A simple website, built with Glitch. Remix it to get your own."
+    />
+    <meta
+      property="og:image"
+      content="https://cdn.glitch.com/605e2a51-d45f-4d87-a285-9410ad350515%2Fhello-website-social.png?v=1616712748147"
+    />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- Import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- Import the webpage's javascript file -->
+    <script src="/script.js" defer></script>
+  </head>
+  <body>
+    <script>
+window.addEventListener("message", function(event) {
+  if (event.data.type === "npsScoreClicked") {
+    console.log(event.data); // contains { score, sessionId, customerUserId, guideId, stepId }
+  }
+  
+  if (event.data.type === "npsScoreSubmitted") {
+    console.log(event.data); // contains { score, response, sessionId, customerUserId, guideId, stepId }
+  }
+  
+  if (event.data.type === "npsScoreSkipped") {
+    console.log(event.data); // contains { sessionId, customerUserId, guideId, stepId }
+  }
+});
+    </script>
+    <script>
+      window.STONLY_WID = "f3fb062b-6015-11ed-871a-0a52ff1ec764";
+    </script>
+    <script>
+      !(function (s, t, o, n, l, y, w, g) {
+        s.StonlyWidget ||
+          (((w = s.StonlyWidget =
+            function () {
+              w._api ? w._api.apply(w, arguments) : w.queue.push(arguments);
+            }).scriptPath = n),
+          (w.queue = []),
+          ((y = t.createElement(o)).async = !0),
+          (g = new XMLHttpRequest()).open(
+            "GET",
+            n + "version?v=" + Date.now(),
+            !0
+          ),
+          (g.onreadystatechange = function () {
+            4 === g.readyState &&
+              ((y.src =
+                n +
+                "stonly-widget.js?v=" +
+                (200 === g.status ? g.responseText : Date.now())),
+              (l = t.getElementsByTagName(o)[0]).parentNode.insertBefore(y, l));
+          }),
+          g.send());
+      })(window, document, "script", "https://stonly.com/js/widget/v2/");
+  StonlyWidget("identify", "Poe", {
+first_login: "2024-08-27",
+company_id: 123,
+});
+    </script>
+<!--         <script>
+document.addEventListener('DOMContentLoaded', function() {
+  function handleClick(event) {
+    // Check if the event target or any of its ancestors have the target class
+    if (event.target.closest('[class*="stonly-banner-wrapper"]')) {
+      // Log a message to the console
+      console.log('Element clicked!');
+      StonlyWidget('track', 'banner');
+          }
+  }
+
+  // Attach the click event listener to the document for prioritization
+  document.addEventListener('click', handleClick, true);  // Use capturing phase
+});
+    </script>
+    <script>
+    window.addEventListener("message", function(event) {
+  if (event.data.target === "sup") {
+    console.log(event, event.data.value);
+    // Change CSS color of element with class "test" to blue
+    var elements = document.getElementsByClassName("test");
+    for(var i = 0; i < elements.length; i++) {
+      elements[i].style.color = "blue";
+    }
+  }
+});
+
+    </script>-->
+    <script>
+    function getBusinessStatus() {
+    const now = new Date();
+    const hour = now.getHours();
+
+    if (hour >= 9 && hour < 22) {
+        return "open";
+    } else {
+        return "close";
+    }
+}
+
+console.log(getBusinessStatus());
+StonlyWidget("sendData", {
+            guideData: {
+              hour: getBusinessStatus(),
+            },
+          });
+    </script>
+    <!--    <script>
+const currenturl = window.location.href;
+      StonlyWidget("sendData", {
+          guideData: {
+            currenturl: currenturl,
+          }
+        });
+    </script>-->
+    <script>
+      let salary = 0;
+      let input2 = 0;
+      let result = 0;
+      window.addEventListener("message", async function (event) {
+        if (event.data.target === "salary") {
+          salary = Number(event.data.value);
+        }
+        if (event.data.target === "input2") {
+          input2 = Number(event.data.value);
+          result = salary - input2;
+          StonlyWidget("sendData", {
+            guideData: {
+              result: result,
+            },
+          });
+        }
+      });
+    </script>
+<script>
+      <!-- Script for getting the query param of the URL if it includes id  -->
+
+      <!-- get current URL -->
+      const queryString = window.location.search;
+      <!-- get the query (includes the ?) -->
+      const urlParams = new URLSearchParams(queryString);
+      <!-- gets what is after ID -->
+      const user_id = urlParams.get("user_id");
+      const company_id = urlParams.get("company_id");
+
+      <!-- if URL have a query with id, returns true (else false), in case it's true, send the query to the local variable query -->
+      if (urlParams.has("user_id") === true) {
+        StonlyWidget("sendData", {
+          guideData: {
+            query: user_id,
+          },
+        });
+      }
+      if (urlParams.has("company_id") === true) {
+        StonlyWidget("sendData", {
+          guideData: {
+            comp: company_id,
+          },
+        });
+      } 
+  </script> 
+    <!--
+      This is the body of the page
+      Look at the elements and see how they appear in the rendered page on the right
+      Each element is defined using tags, with < and > indicating where each one opens and closes
+      There are elements for sections of the page, images, text, and more
+      The elements include attributes referenced in the CSS for the page style
+    -->
+    <!-- The wrapper and content divs set margins and positioning -->
+    <div class="wrapper">
+      <div class="content" role="main">
+        <!-- This is the start of content for our page -->
+        <h1 class="title">Hello World!</h1>
+
+        <img
+          src="https://cdn.glitch.com/a9975ea6-8949-4bab-addb-8a95021dc2da%2Fillustration.svg?v=1618177344016"
+          class="illustration"
+          alt="Editor illustration"
+          title="Click the image!"
+        />
+        <!-- Instructions on using this project -->
+        <div class="instructions">
+          <h2>Using this project</h2>
+          <p class="test">
+            This is the Glitch <strong>Hello Website</strong> project. You can
+            use it to build your own site. Check out README.md in the editor for
+            more info and next steps you can take!
+          </p>
+          <a
+            href="https://stonly.com/guide/en/warning-SsEcPMq1tT/Steps/2015092"
+          >
+            Tag me
+          </a>
+          <br /><br />
+          <!-- ADD BUTTON HERE -->
+          <button
+            class="butt"
+            data-cy="feedback"
+            onclick="window.location.href='https://stonly.com/kb/en';"
+          >
+            Helpcenter
+          </button>
+          <button class="butt">Click me!</button>
+          <button class="but">Don't click me!</button>
+          <button class="butttt"> 
+            Open GT
+          </button>
+          <button
+            class="btnnn"
+            onclick="window.location.href='https://chisel-garnet-rail.glitch.me';"
+          >
+            Other page of the website
+          </button>
+          <!-- Trigger/Open The Modal -->
+          <button id="modalbtn">Open Modal</button>
+
+          <!-- The Modal -->
+          <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <p>Some text in the Modal..</p>
+              <span>This is the label I want to choose</span>
+              <span class="modal-test">Some nice content here</span>
+              <br />
+              <input type="text" id="inputmodal" />
+            </div>
+          </div>
+          <p class="role"><strong>Your role is: admin</strong></p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <p>I am a passenger</p>
+          <p>And I ride, and I ride</p>
+          <p>I ride through the city's backsides</p>
+          <p>
+            I see the stars come out of the sky <br />Yeah, they're bright in a
+            hollow sky <br />You know it looks so good tonight
+          </p>
+          <span class="modal-test">Some nice content here</span>
+          <br />     <br />     <br />
+          <div class="dropdown">
+            <button class="dropbtn">Dropdown</button>
+            <div class="dropdown-content">
+              <a href="#" class="modal-test">Skill 1</a>
+              <a href="#">Skill 2</a>
+              <a href="#">Skill 3</a>
+            </div>
+          </div>
+          <select name="pets" id="pet-select">
+            <option value="">--Please choose an option--</option>
+            <option value="dog">Dog</option>
+            <option value="cat">Cat</option>
+            <option value="hamster">Hamster</option>
+            <option value="parrot">Parrot</option>
+            <option value="spider">Spider</option>
+            <option value="goldfish">Goldfish</option>
+          </select>
+          <label for="myfile">Select a file:</label>
+          <input type="file" id="myfile" name="myfile" />
+<br/>
+        <ul>
+          <li><a href="https://internal-kb-test.stonly.com/kb/en?customerUserId=1" target="_blank">Admin KB</a></li>
+          <li><a href="https://internal-kb-test.stonly.com/kb/en?customerUserId=2" target="_blank">External KB</a></li>
+          </ul>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <form>
+            <label for="fname">Role:</label><br />
+            <input type="text" id="fname" name="fname" /><br />
+            <label for="lname">Animal:</label><br />
+            <input type="text" id="lname" name="lname" />
+          </form>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <button class="newbutt">I'm Edgar Hover</button>
+        </div>
+      </div>
+    </div>
+    <p id="stonly--tracker-settings">Some text here.</p>
+    <p>
+    <a href="https://status.stonly.com/">Go to status page</a>
+    </p>
+
+    <iframe
+      src="https://www.wikipedia.org"
+      style="height: 400px; width: 720px; margin: auto; display: block"
+      title="kb"
+    ></iframe>
+    <br /><br /><br />
+<!--     <iframe id="myIframe" 
+      src="https://stonly-gi11e.stonly.com"
+      style="height: 400px; width: 720px; margin: auto; display: block"
+      title="kb"
+             target="_self"
+    ></iframe> -->
+    <!-- The footer holds our remix button — you can use it for structure or cut it out ✂ -->
+    <button id="test-btn">?test</button>
+    <button id="normal-btn">normal</button>
+    <button class="burger-links">Click me!</button>
+    <button class="event">Event listener</button>
+    <footer class="footer">
+      <div class="links"></div>
+      <a
+        class="btn--remix"
+        target="_top"
+        href="https://glitch.com/edit/#!/remix/glitch-hello-website"
+      >
+        <img
+          src="https://cdn.glitch.com/605e2a51-d45f-4d87-a285-9410ad350515%2FLogo_Color.svg?v=1618199565140"
+          alt=""
+        />
+        Remix on Glitch
+      </a>
+    </footer>
+  </body>
+</html>
