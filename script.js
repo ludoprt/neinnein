@@ -107,5 +107,5 @@ boutons ajout d'un query/retour sur le site sans que la page se recharge
 
         document.getElementById("normal-btn").addEventListener("click", function () {
             const newUrl = "/";
-            history.pushState(null, "", newUrl);
+            window.location.href = "https://ludoprt.github.io/neinnein/";
         });
