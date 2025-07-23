@@ -101,11 +101,9 @@ clll.addEventListener("click", () => {
 boutons ajout d'un query/retour sur le site sans que la page se recharge
 */
 document.getElementById("test-btn").addEventListener("click", function () {
-    const newUrl = "/?test";
-    history.pushState(null, "", newUrl);
+    history.pushState(null, "", "/neinnein/?test");
 });
 
 document.getElementById("normal-btn").addEventListener("click", function () {
-    const newUrl = "/";
-    history.pushState(null, "", newUrl);
+    history.pushState(null, "", "/neinnein/");
 });
