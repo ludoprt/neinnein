@@ -105,33 +105,29 @@ user_id: "ludo"
   let question3 = "";
   let score = 0;
 
-  window.addEventListener("message", async function (event) {
-    const target = event.data?.target;
-    const value = event.data?.value;
+  window.addEventListener("message", function(event) {
+    // Only proceed if we get the allQuestions target with an object value
+    if (event.data.target === "allQuestions" && typeof event.data.value === "object") {
+      console.log("Raw input received:", event.data.value);
 
-    if (!["question1", "question2", "question3"].includes(target)) return;
+      // Assign to variables, convert to lowercase for comparison
+      question1 = (event.data.value.question1 || "").toLowerCase();
+      question2 = (event.data.value.question2 || "").toLowerCase();
+      question3 = (event.data.value.question3 || "").toLowerCase();
 
-    console.log(`Received ${target}:`, value);
+      console.log("Assigned variables:");
+      console.log("question1 =", question1);
+      console.log("question2 =", question2);
+      console.log("question3 =", question3);
 
-    if (target === "question1") {
-      question1 = value.toLowerCase();
-    }
-
-    if (target === "question2") {
-      question2 = value.toLowerCase();
-    }
-
-    if (target === "question3") {
-      question3 = value.toLowerCase();
-
-      // All values are now set, evaluate the score
+      // Evaluate score
       let q1Score = question1 === "good" ? 1 : 0;
       let q2Score = question2 === "saturn" ? 1 : 0;
       let q3Score = question3 === "object" ? 1 : 0;
 
       score = ((q1Score + q2Score + q3Score) / 3) * 100;
 
-      // Send data and log it
+      // Send and print result
       StonlyWidget("sendData", {
         guideData: {
           result: score,
@@ -142,6 +138,7 @@ user_id: "ludo"
     }
   });
 </script>
+
 
 <!--         <script>
 document.addEventListener('DOMContentLoaded', function() {
