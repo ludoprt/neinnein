@@ -95,6 +95,43 @@ user_profile: "Admin",
 user_id: "ludo"
 });
     </script>
+    <script>
+  // This code is linked to guide: https://app.stonly.com/app/guide/u36OYHmePH/editor/4579503
+
+  let question1 = "";
+  let question2 = "";
+  let question3 = "";
+  let score = 0;
+
+  window.addEventListener("message", async function (event) {
+    if (event.data.target === "question1") {
+      question1 = event.data.value.toLowerCase();
+    }
+    if (event.data.target === "question2") {
+      question2 = event.data.value.toLowerCase();
+    }
+    if (event.data.target === "question3") {
+      question3 = event.data.value.toLowerCase();
+
+      // All values are now set, evaluate the score
+      let q1Score = question1 === "good" ? 1 : 0;
+      let q2Score = question2 === "saturn" ? 1 : 0;
+      let q3Score = question3 === "object" ? 1 : 0;
+
+      score = ((q1Score + q2Score + q3Score) / 3) * 100;
+
+      // Send data and log it
+      StonlyWidget("sendData", {
+        guideData: {
+          result: score,
+        },
+      });
+
+      console.log("Score percentage:", score + "%");
+    }
+  });
+</script>
+
 <!--         <script>
 document.addEventListener('DOMContentLoaded', function() {
   function handleClick(event) {
