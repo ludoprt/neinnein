@@ -95,7 +95,7 @@ user_profile: "Admin",
 user_id: "ludo"
 });
     </script>
-  <script>
+<script>
   // This code is linked to guide: https://app.stonly.com/app/guide/u36OYHmePH/editor/4579503
 
   console.log("Script booted");
@@ -106,21 +106,23 @@ user_id: "ludo"
   let score = 0;
 
   window.addEventListener("message", async function (event) {
-    console.log("Received message:", event.data);
+    const target = event.data?.target;
+    const value = event.data?.value;
 
-    if (event.data.target === "question1") {
-      question1 = event.data.value.toLowerCase();
-      console.log("Question 1 received:", question1);
+    if (!["question1", "question2", "question3"].includes(target)) return;
+
+    console.log(`Received ${target}:`, value);
+
+    if (target === "question1") {
+      question1 = value.toLowerCase();
     }
 
-    if (event.data.target === "question2") {
-      question2 = event.data.value.toLowerCase();
-      console.log("Question 2 received:", question2);
+    if (target === "question2") {
+      question2 = value.toLowerCase();
     }
 
-    if (event.data.target === "question3") {
-      question3 = event.data.value.toLowerCase();
-      console.log("Question 3 received:", question3);
+    if (target === "question3") {
+      question3 = value.toLowerCase();
 
       // All values are now set, evaluate the score
       let q1Score = question1 === "good" ? 1 : 0;
@@ -140,6 +142,7 @@ user_id: "ludo"
     }
   });
 </script>
+
 <!--         <script>
 document.addEventListener('DOMContentLoaded', function() {
   function handleClick(event) {
