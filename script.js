@@ -107,3 +107,17 @@ document.getElementById("test-btn").addEventListener("click", function () {
 document.getElementById("normal-btn").addEventListener("click", function () {
     history.pushState(null, "", "/neinnein/");
 });
+
+// Get value from HTML element and send them to Stonly
+const nameElement = document.querySelector("#name");
+const mailElement = document.querySelector("#mail");
+
+const nameValue = nameElement ? nameElement.textContent.trim() : "";
+const mailValue = mailElement ? mailElement.textContent.trim() : "";
+
+StonlyWidget('sendData', {
+  guideData: {
+    name: nameValue,
+    mail: mailValue,
+  },
+});
