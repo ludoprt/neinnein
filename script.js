@@ -129,7 +129,17 @@ StonlyWidget('sendData', {
   // Initialize Stonly dynamically
   function initStonly() {
     const currentDealer = getCurrentDealer();
- // Call init on page load
+
+    // Call your original identify code, but dynamically set dealer_id
+    StonlyWidget("identify", "Poe", {
+      first_login: "2024-08-27",
+      company_id: 123,
+      user_profile: "Admin",
+      dealer_id: currentDealer || 1  // default to 1 if not set yet
+    });
+  }
+
+  // Call init on page load
   window.addEventListener('DOMContentLoaded', initStonly);
 
   // Handle dealer selection
