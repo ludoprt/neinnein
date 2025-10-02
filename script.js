@@ -122,15 +122,25 @@ StonlyWidget('sendData', {
   },
 });
 
- function selectDealer(dealerId) {
-      const consentKey = `consent_dealer_${dealerId}`;
-      const hasConsent = localStorage.getItem(consentKey);
+  function getCurrentDealer() {
+    return localStorage.getItem('current_dealer_id') || null;
+  }
 
-      // Always send dealer_id
-      StonlyWidget('identify', 'Poe', { dealer_id: dealerId });
+  // Initialize Stonly dynamically
+  function initStonly() {
+    const currentDealer = getCurrentDealer();
+ // Call init on page load
+  window.addEventListener('DOMContentLoaded', initStonly);
 
-      // Reset consent only if not yet accepted
-      if (!hasConsent) {
-        StonlyWidget('identify', 'Poe', { consent: ' ' });
-      }
+  // Handle dealer selection
+  function selectDealer(dealerId) {
+    const currentDealer = getCurrentDealer();
+
+    if (currentDealer !== String(dealerId)) {
+      StonlyWidget("identify", "Poe", { dealer_id: dealerId });
+      localStorage.setItem('current_dealer_id', dealerId);
+      console.log(`Dealer changed to ${dealerId}`);
+    } else {
+      console.log(`Dealer ${dealerId} already selected, no changes`);
     }
+  }
