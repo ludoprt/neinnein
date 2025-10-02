@@ -121,16 +121,3 @@ StonlyWidget('sendData', {
     mail: mailValue,
   },
 });
-
-  // Handle dealer button click
-  function selectDealer(dealerId) {
-    if (typeof StonlyWidget !== "function") {
-      console.warn("StonlyWidget not loaded yet");
-      return;
-    }
-
-    // We cannot read dealer_id from Stonly, so let's just send it
-    StonlyWidget("identify", "Poe", { dealer_id: dealerId });
-
-    console.log("Dealer updated to", dealerId);
-  }
