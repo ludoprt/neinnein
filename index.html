@@ -47,21 +47,6 @@
   </head>
   <body>
     <script>
-window.addEventListener("message", function(event) {
-  if (event.data.type === "npsScoreClicked") {
-    console.log(event.data); // contains { score, sessionId, customerUserId, guideId, stepId }
-  }
-  
-  if (event.data.type === "npsScoreSubmitted") {
-    console.log(event.data); // contains { score, response, sessionId, customerUserId, guideId, stepId }
-  }
-  
-  if (event.data.type === "npsScoreSkipped") {
-    console.log(event.data); // contains { sessionId, customerUserId, guideId, stepId }
-  }
-});
-    </script>
-    <script>
       window.STONLY_WID = "f3fb062b-6015-11ed-871a-0a52ff1ec764";
     </script>
     <script>
@@ -88,17 +73,37 @@ window.addEventListener("message", function(event) {
           }),
           g.send());
       })(window, document, "script", "https://stonly.com/js/widget/v2/");
-     StonlyWidget("identify", "Poe", {
-      first_login: "2024-08-27",
-      company_id: 123,
-      user_profile: "Admin",
-      dealer_id: currentDealer || 1  // default to 1 if not set yet
-    });
+  // Get current dealer from localStorage (or default to 1)
+  const currentDealer = localStorage.getItem("current_dealer_id") || 1;
+
+  // Run your original identify call
+  StonlyWidget("identify", "Poe", {
+    first_login: "2024-08-27",
+    company_id: 123,
+    user_profile: "Admin",
+    dealer_id: currentDealer  // dynamic value from storage or default
+  });
+
+  // Dealer button click handler
+  function selectDealer(dealerId) {
+    if (typeof StonlyWidget !== "function") {
+      console.warn("StonlyWidget not loaded yet");
+      return;
+    }
+
+    // Only update if dealer changed
+    if (currentDealer != dealerId) {
+      StonlyWidget("identify", "Poe", { dealer_id: dealerId });
+      localStorage.setItem("current_dealer_id", dealerId);
+      console.log("Dealer updated to", dealerId);
+    } else {
+      console.log("Dealer is already", dealerId);
+    }
+  }
     </script>
+    
 <script>
   // This code is linked to guide: https://app.stonly.com/app/guide/u36OYHmePH/editor/4579503
-
-  console.log("Script booted");
 
   let question1 = "";
   let question2 = "";
@@ -138,20 +143,9 @@ window.addEventListener("message", function(event) {
     }
   });
 </script>
-    <script>
-    window.addEventListener("message", function(event) {
-  if (event.data.target === "sup") {
-    console.log(event, event.data.value);
-    // Change CSS color of element with class "test" to blue
-    var elements = document.getElementsByClassName("test");
-    for(var i = 0; i < elements.length; i++) {
-      elements[i].style.color = "blue";
-    }
-  }
-});
 
-    </script>-->
-    <script>
+    <!--   
+        <script>
     function getBusinessStatus() {
     const now = new Date();
     const hour = now.getHours();
@@ -170,7 +164,7 @@ StonlyWidget("sendData", {
             },
           });
     </script>
-    <!--    <script>
+    <script>
 const currenturl = window.location.href;
       StonlyWidget("sendData", {
           guideData: {
