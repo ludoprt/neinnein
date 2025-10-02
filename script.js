@@ -133,7 +133,4 @@ StonlyWidget('sendData', {
       if (!hasConsent) {
         StonlyWidget('identify', 'Poe', { consent: ' ' });
       }
-
-      // Refresh page
-      location.reload();
     }
