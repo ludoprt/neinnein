@@ -121,3 +121,19 @@ StonlyWidget('sendData', {
     mail: mailValue,
   },
 });
+
+ function selectDealer(dealerId) {
+      const consentKey = `consent_dealer_${dealerId}`;
+      const hasConsent = localStorage.getItem(consentKey);
+
+      // Always send dealer_id
+      StonlyWidget('identify', 'Poe', { dealer_id: dealerId });
+
+      // Reset consent only if not yet accepted
+      if (!hasConsent) {
+        StonlyWidget('identify', 'Poe', { consent: ' ' });
+      }
+
+      // Refresh page
+      location.reload();
+    }
