@@ -122,35 +122,39 @@ StonlyWidget('sendData', {
   },
 });
 
-  function getCurrentDealer() {
-    return localStorage.getItem('current_dealer_id') || null;
+  function safeIdentify(data) {
+    if (typeof StonlyWidget === "function") {
+      StonlyWidget("identify", "Poe", data);
+    } else {
+      console.warn("StonlyWidget not loaded yet");
+    }
   }
 
-  // Initialize Stonly dynamically
-  function initStonly() {
-    const currentDealer = getCurrentDealer();
+  // Get current dealer from localStorage
+  function getCurrentDealer() {
+    return localStorage.getItem("current_dealer_id") || null;
+  }
 
-    // Call your original identify code, but dynamically set dealer_id
-    StonlyWidget("identify", "Poe", {
+  // Initialize Stonly
+  function initStonly() {
+    const currentDealer = getCurrentDealer() || 1; // default to 1
+    safeIdentify({
       first_login: "2024-08-27",
       company_id: 123,
       user_profile: "Admin",
-      dealer_id: currentDealer || 1  // default to 1 if not set yet
+      dealer_id: currentDealer
     });
   }
 
-  // Call init on page load
-  window.addEventListener('DOMContentLoaded', initStonly);
-
-  // Handle dealer selection
+  // Handle dealer click
   function selectDealer(dealerId) {
     const currentDealer = getCurrentDealer();
 
     if (currentDealer !== String(dealerId)) {
-      StonlyWidget("identify", "Poe", { dealer_id: dealerId });
-      localStorage.setItem('current_dealer_id', dealerId);
+      safeIdentify({ dealer_id: dealerId });
+      localStorage.setItem("current_dealer_id", dealerId);
       console.log(`Dealer changed to ${dealerId}`);
     } else {
-      console.log(`Dealer ${dealerId} already selected, no changes`);
+      console.log(`Dealer ${dealerId} already selected`);
     }
   }
