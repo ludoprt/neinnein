@@ -73,33 +73,13 @@
           }),
           g.send());
       })(window, document, "script", "https://stonly.com/js/widget/v2/");
-  // Get current dealer from localStorage (or default to 1)
-  const currentDealer = localStorage.getItem("current_dealer_id") || 1;
 
   // Run your original identify call
   StonlyWidget("identify", "Poe", {
     first_login: "2024-08-27",
     company_id: 123,
     user_profile: "Admin",
-    dealer_id: currentDealer  // dynamic value from storage or default
   });
-
-  // Dealer button click handler
-  function selectDealer(dealerId) {
-    if (typeof StonlyWidget !== "function") {
-      console.warn("StonlyWidget not loaded yet");
-      return;
-    }
-
-    // Only update if dealer changed
-    if (currentDealer != dealerId) {
-      StonlyWidget("identify", "Poe", { dealer_id: dealerId });
-      localStorage.setItem("current_dealer_id", dealerId);
-      console.log("Dealer updated to", dealerId);
-    } else {
-      console.log("Dealer is already", dealerId);
-    }
-  }
     </script>
     
 <script>
