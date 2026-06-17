@@ -224,6 +224,32 @@ const currenturl = window.location.href;
             use it to build your own site. Check out README.md in the editor for
             more info and next steps you can take!
           </p>
+          <br/>
+          <div id="intercom-fake" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #0071b2;
+  cursor: pointer;
+  z-index: 2147483647;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+">💬</div>
+
+<script>
+  // Mimic how Intercom opens — it dispatches its own events
+  document.getElementById('intercom-fake').addEventListener('click', (e) => {
+    console.log('Intercom pill clicked', e.target, e.currentTarget);
+    // Intercom does NOT stop propagation by default, so don't here either
+  });
+</script>
           <a
             href="https://stonly.com/guide/en/warning-SsEcPMq1tT/Steps/2015092"
           >
